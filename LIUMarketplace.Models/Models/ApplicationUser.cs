@@ -26,5 +26,9 @@ namespace LIUMarketplace.Models.Models
         [Required]
         [StringLength(25)]
         public string Major { get; set; }
+
+        public List<Product> Products { get; set; }
+        public List<Review> Reviews { get; set; }
+        public List<Media> Media { get; set; }
     }
 }
