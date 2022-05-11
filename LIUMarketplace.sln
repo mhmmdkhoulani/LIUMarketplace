@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIUMarketPlace.Api", "LIUMarketPlace.Api\LIUMarketPlace.Api.csproj", "{AF1E1CBE-4FD6-4641-96BA-2069AC0755C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIUMarketplace.Models", "LIUMarketplace.Models\LIUMarketplace.Models.csproj", "{D35C7377-F2D1-4F5E-8067-AC1FE5520DCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIUMarketplace.Shared", "LIUMarketplace.Shared\LIUMarketplace.Shared.csproj", "{CF338AF1-95AC-4851-B254-82F98E05E711}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{AF1E1CBE-4FD6-4641-96BA-2069AC0755C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF1E1CBE-4FD6-4641-96BA-2069AC0755C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF1E1CBE-4FD6-4641-96BA-2069AC0755C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35C7377-F2D1-4F5E-8067-AC1FE5520DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35C7377-F2D1-4F5E-8067-AC1FE5520DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35C7377-F2D1-4F5E-8067-AC1FE5520DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35C7377-F2D1-4F5E-8067-AC1FE5520DCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF338AF1-95AC-4851-B254-82F98E05E711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF338AF1-95AC-4851-B254-82F98E05E711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF338AF1-95AC-4851-B254-82F98E05E711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF338AF1-95AC-4851-B254-82F98E05E711}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
