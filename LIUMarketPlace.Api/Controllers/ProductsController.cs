@@ -19,9 +19,47 @@ namespace LIUMarketPlace.Api.Controllers
             _productService = productService;
         }
 
+        #region GetAllProducts
+        [HttpGet]
+
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var products = _productService.GetAllProductAsync();
+            return Ok(products);
+
+        }
+
+        #endregion
+
+        #region GetAllProductsByCategoryId
+        [HttpGet("GetByCategoryId")]
+
+        public async Task<IActionResult> GetAllByCategoryIdAsync(int id)
+        {
+            var products = await _productService.GetAllProductByCategoryIdAsync(id);
+            return Ok(products);
+        }
+
+        #endregion
+
+        #region GetProductById
+        [HttpGet("{id}")]
+
+        public async Task<IActionResult> GetAsync(string id)
+        {
+            var product = await _productService.GetProductByIdAsync(id);
+            if(product == null)
+            {
+                return BadRequest($"Product with id {id} not found");
+            }
+            return Ok(product);
+        }
+
+        #endregion
+
         #region AddProduct
-        [HttpPost("add")]
-        public async Task<IActionResult> AddProduct([FromForm] AddProductDto model)
+        [HttpPost]
+        public async Task<IActionResult> AddProduct([FromForm] ProductDto model)
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -30,14 +68,45 @@ namespace LIUMarketPlace.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            var isValid = await _productService.IsValidCategoryId(model.CategoryId);
+            if (!isValid)
+                return BadRequest("Invalid Category Id");
+
             var result = await _productService.AddProductAsync(model);
-
-            if (result == null)
-            {
-                return BadRequest("Product not Added ");
-            }
-
             return Ok(result);
+        }
+        #endregion
+
+        #region UpdateProduct
+        [HttpPut]
+        public async Task<IActionResult> UpdateProductAsync([FromForm]ProductDto model)
+        {
+            var product = await _productService.GetProductByIdAsync(model.Id);
+
+            if (product == null)
+                return BadRequest($"Product with id {model.Id} not found");
+
+            var isValid = await _productService.IsValidCategoryId(model.CategoryId);
+
+            if (!isValid)
+                return BadRequest("Invalid category ");
+
+            var result = await _productService.UpdateMovieAsync(model);
+            return Ok(result);
+        }
+        #endregion
+
+        #region DeleteProduct 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(string id)
+        {
+            var product =  _productService.DeleteProductAsync(id);
+
+            if (product == null)
+                return BadRequest($"No product with this id {id}");
+
+            return Ok("Product Deleted");
+
         }
         #endregion
     }

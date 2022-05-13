@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -41,6 +42,9 @@ namespace LIUMarketplace.Models.Models
 
         public virtual List<Review> Reviews { get; set; }
 
+        [NotMapped]
+        public IFormFile ImageCover { get; set; }
+        public string ImageCoverUrl { get; set; }
         public List<Media> MediaPaths { get; set; }
 
         public virtual Category Category { get; set; }

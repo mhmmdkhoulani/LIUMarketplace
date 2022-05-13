@@ -22,6 +22,16 @@ namespace LIUMarketPlace.Api.Services
             _configuration = configuration;
         }
 
+        private void AddRolesToClaims(List<Claim> claims, IEnumerable<string> roles)
+        {
+            foreach (var role in roles)
+            {
+                var roleClaim = new Claim(ClaimTypes.Role, role);
+                claims.Add(roleClaim);
+            }
+        }
+
+
 
         public async Task<AuthResponse> CreateUserAsync(RegisterDto model, string role)
         {
@@ -78,13 +88,21 @@ namespace LIUMarketPlace.Api.Services
 
 
                         //adding jwt 
-                        var claims = new[]
+                        var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Email, user.Email),
                             new Claim(ClaimTypes.NameIdentifier, user.Id),
                             new Claim(ClaimTypes.GivenName, user.FirstName),
                             new Claim(ClaimTypes.Surname, user.LastName)
                         };
+
+                        // Get User roles and add them to claims
+                        var roles = await _userManager.GetRolesAsync(user);
+                        AddRolesToClaims(claims, roles);
+
+                        
+
+
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
 
                         var token = new JwtSecurityToken(
@@ -132,13 +150,18 @@ namespace LIUMarketPlace.Api.Services
 
 
             //adding jwt 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                             new Claim(ClaimTypes.Email, user.Email),
                             new Claim(ClaimTypes.NameIdentifier, user.Id),
                             new Claim(ClaimTypes.GivenName, user.FirstName),
                             new Claim(ClaimTypes.Surname, user.LastName)
                         };
+
+            // Get User roles and add them to claims
+            var roles = await _userManager.GetRolesAsync(user);
+            AddRolesToClaims(claims, roles);
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
 
             var token = new JwtSecurityToken(
