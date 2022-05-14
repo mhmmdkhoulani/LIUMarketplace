@@ -22,4 +22,5 @@ namespace LIUMarketplace.Shared.DTOs
         public Category Category { get; set; }
 
     }
+
 }
