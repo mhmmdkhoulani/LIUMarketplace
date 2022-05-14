@@ -33,9 +33,11 @@ namespace LIUMarketPlace.Api.Services
         {
 
             var productImage = await FileHelper.ImageUpload(dto.ImageCover);
+
             var product = dto.ToProduct();
             product.ImageCoverUrl = productImage;
             product.CreatedByUserId = _identityOption.UserId;
+            product.Category = await _db.Categories.FindAsync(dto.CategoryId);
 
             await _db.Products.AddAsync(product);
             await _db.SaveChangesAsync();
@@ -46,11 +48,8 @@ namespace LIUMarketPlace.Api.Services
         public async Task DeleteProductAsync(string id)
         {
             var product = await _db.Products.FindAsync(id);
-            if(product == null)
-            {
-                return;
-            }
             _db.Products.Remove(product);
+            _db.SaveChanges();
         }
 
         public async Task<IEnumerable<ProductDetailsDto>> GetAllProductAsync()
@@ -58,8 +57,7 @@ namespace LIUMarketPlace.Api.Services
             var products = _db.Products
                 .OrderByDescending(p => p.CreatedTime)
                 .Include(p => p.Category);
-
-
+            
             return await products.Select(p => p.ToProductDetailsDto()).ToListAsync();
         }
 
@@ -77,12 +75,13 @@ namespace LIUMarketPlace.Api.Services
         {
             var product = await _db.Products.FindAsync(id);
 
-            if(product == null)
+            if(product != null)
             {
-                return null;
+                var cateoryId = product.CategoryId;
+                product.Category = await _db.Categories.FindAsync(cateoryId);
+                return product.ToProductDetailsDto();
             }
-
-            return product.ToProductDetailsDto();
+            return null;
         }
 
         public async Task<bool> IsValidCategoryId(int id)

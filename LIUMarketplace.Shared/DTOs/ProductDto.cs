@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LIUMarketplace.Models.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace LIUMarketplace.Shared.DTOs
         public List<IFormFile> MediaPaths { get; set; }
         public double Price { get; set; }
         public string Status { get; set; }
-        public int CategoryId { get; set; }        
+        public int CategoryId { get; set; } 
+        public Category Category { get; set; }
 
     }
 }

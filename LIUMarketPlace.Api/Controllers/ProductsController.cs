@@ -24,7 +24,7 @@ namespace LIUMarketPlace.Api.Controllers
 
         public async Task<IActionResult> GetAllAsync()
         {
-            var products = _productService.GetAllProductAsync();
+            var products = await _productService.GetAllProductAsync();
             return Ok(products);
 
         }
@@ -32,10 +32,14 @@ namespace LIUMarketPlace.Api.Controllers
         #endregion
 
         #region GetAllProductsByCategoryId
-        [HttpGet("GetByCategoryId")]
+        [HttpGet("GetByCategoryId/{id}")]
 
         public async Task<IActionResult> GetAllByCategoryIdAsync(int id)
         {
+            var isValid = await _productService.IsValidCategoryId(id);
+            if (!isValid)
+                return BadRequest("Invalid Category Id");
+
             var products = await _productService.GetAllProductByCategoryIdAsync(id);
             return Ok(products);
         }
@@ -45,7 +49,7 @@ namespace LIUMarketPlace.Api.Controllers
         #region GetProductById
         [HttpGet("{id}")]
 
-        public async Task<IActionResult> GetAsync(string id)
+        public async Task<IActionResult> GetAsync( string id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             if(product == null)
@@ -100,11 +104,12 @@ namespace LIUMarketPlace.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(string id)
         {
-            var product =  _productService.DeleteProductAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
 
             if (product == null)
                 return BadRequest($"No product with this id {id}");
 
+            await _productService.DeleteProductAsync(id);
             return Ok("Product Deleted");
 
         }

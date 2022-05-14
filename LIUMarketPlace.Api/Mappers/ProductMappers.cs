@@ -27,7 +27,9 @@ namespace LIUMarketPlace.Api.Mappers
                 Description = dto.Description,
                 Price = dto.Price,
                 Status = dto.Status,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                Category = dto.Category
+                
             };
         }
     }
