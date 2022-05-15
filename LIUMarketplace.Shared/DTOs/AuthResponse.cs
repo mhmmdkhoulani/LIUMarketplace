@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LIUMarketplace.Models.Models
+namespace LIUMarketplace.Shared.DTOs
 {
     public class AuthResponse
     {

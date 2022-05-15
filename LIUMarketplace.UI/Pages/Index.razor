@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
@@ -11,7 +12,7 @@ Welcome to your new app.
         <h1>Welcome @context.User.FindFirst(System.Security.Claims.ClaimTypes.GivenName).Value </h1>
     </Authorized>
     <NotAuthorized>
-        <h2>Please login</h2>
+        <MudLink Href="/auth/login" Typo="Typo.body2">Login</MudLink>
     </NotAuthorized>
 </AuthorizeView>
 @code{

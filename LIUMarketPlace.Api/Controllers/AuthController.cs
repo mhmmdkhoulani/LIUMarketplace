@@ -47,7 +47,7 @@ namespace LIUMarketPlace.Api.Controllers
 
             if (!result.IsAuthenticated)
             {
-                return BadRequest(result.Messages);
+                return BadRequest(result);
             }
 
             return Ok(result);

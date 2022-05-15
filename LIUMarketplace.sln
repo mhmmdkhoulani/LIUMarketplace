@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIUMarketplace.Models", "LI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIUMarketplace.Shared", "LIUMarketplace.Shared\LIUMarketplace.Shared.csproj", "{CF338AF1-95AC-4851-B254-82F98E05E711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIUMarketplace.UI", "LIUMarketplace.UI\LIUMarketplace.UI.csproj", "{05718459-E658-47B3-BD3F-962614864A36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIUMarketplace.UI", "LIUMarketplace.UI\LIUMarketplace.UI.csproj", "{05718459-E658-47B3-BD3F-962614864A36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

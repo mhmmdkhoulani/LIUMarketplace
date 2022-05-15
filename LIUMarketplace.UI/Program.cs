@@ -11,7 +11,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpClient("LIUMarketPlace.Api", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7081/");
+    client.BaseAddress = new Uri("https://localhost:7081");
 }).AddHttpMessageHandler<AuthorizationMessageHandler>();
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
