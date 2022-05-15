@@ -1,5 +1,6 @@
 using Blazored.LocalStorage;
 using LIUMarketplace.UI;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -14,10 +15,14 @@ builder.Services.AddHttpClient("LIUMarketPlace.Api", client =>
 }).AddHttpMessageHandler<AuthorizationMessageHandler>();
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
+builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticattionStateProvider>();
+
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("LIUMarketPlace.Api"));
 
 
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddAuthorizationCore();
+
 
 await builder.Build().RunAsync();
