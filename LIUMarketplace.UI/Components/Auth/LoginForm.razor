@@ -1,31 +1,34 @@
 ﻿@namespace LIUMarketplace.UI.Components
 
 
-    <EditForm Model="_model" OnValidSubmit="LoginUserAsync" class="p-5 mt-5">
+<EditForm Model="_model" OnValidSubmit="LoginUserAsync" class="p-5 mt-5">
 
-        <DataAnnotationsValidator />
-        <MudCard>
-            <MudCardHeader>
-                 <MudText Typo="Typo.h5" Align="Align.Center">Welcome to LIU Marketplace</MudText>
-            </MudCardHeader>
-            <MudCardContent>
-                
-                <MudTextField Label="Email"@bind-Value="@_model.Email" Variant="Variant.Outlined" Class="mt-5"/>
-                <MudTextField Class="mt-5"  @bind-Value="@_model.Password" Label="Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" AdornmentAriaLabel="Show Password" />
-                <MudText Typo="Typo.body2" Class="mt-5">If you don't have an account, you can register <MudLink Href="#" Typo="Typo.body2">here</MudLink></MudText>
+    <DataAnnotationsValidator />
+    <MudCard Outlined="true">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5" Align="Align.Center">Welcome to LIU Marketplace</MudText>
+                <MudText Typo="Typo.subtitle1" Align="Align.Center">Please fill the form to Login</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+
+            <MudTextField Label="Email" @bind-Value="@_model.Email" Variant="Variant.Outlined" Class="mt-5" />
+            <MudTextField Class="mt-5" @bind-Value="@_model.Password" Label="Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" AdornmentAriaLabel="Show Password" />
+            <MudText Typo="Typo.body2" Class="mt-5">If you don't have an account, you can register <MudLink Href="/auth/register" Typo="Typo.body2">here</MudLink></MudText>
             <ValidationSummary />
-            
-                @if (!string.IsNullOrWhiteSpace(_errorMessage))
-                    {
-                        <MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
-                    }        
+
+            @if (!string.IsNullOrWhiteSpace(_errorMessage))
+            {
+                <MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
+            }
         </MudCardContent>
 
-            <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="_isBusy">Login</MudButton>
-            </MudCardActions>
-        </MudCard>
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="_isBusy">Login</MudButton>
+        </MudCardActions>
+    </MudCard>
 
-    </EditForm>
+</EditForm>
 
 

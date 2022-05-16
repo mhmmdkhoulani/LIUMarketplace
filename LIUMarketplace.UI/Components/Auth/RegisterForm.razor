@@ -1,0 +1,59 @@
+﻿@namespace LIUMarketplace.UI.Components
+
+
+<EditForm Model="_model" OnValidSubmit="RegisterUserAsync" class="p-5 mt-5">
+
+    <DataAnnotationsValidator />
+    <MudCard Outlined="true">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5" Align="Align.Center" >Welcome to LIU Marketplace</MudText>
+                <MudText Typo="Typo.subtitle1" Align="Align.Center" >Please fill the form to SignUp</MudText>
+            </CardHeaderContent>
+
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTextField Label="Email" @bind-Value="@_model.Email" Variant="Variant.Outlined" Class="mt-5" />
+            <MudTextField Label="First Name" @bind-Value="@_model.FirstName" Variant="Variant.Outlined" Class="mt-5" />
+            <MudTextField Label="Last Name" @bind-Value="@_model.LastName" Variant="Variant.Outlined" Class="mt-5" />
+            <MudSelect Dense="true" T="string" Label="Campus" Variant="Variant.Outlined" @bind-Value="@_model.Campus">
+                <MudSelectItem Value="@("Beirut")" />
+                <MudSelectItem Value="@("Bekaa")" />
+                <MudSelectItem Value="@("Saida")" />
+                <MudSelectItem Value="@("Saida")" />
+                <MudSelectItem Value="@("Nabatieh")" />
+                <MudSelectItem Value="@("Tripoli")" />
+                <MudSelectItem Value="@("Mount Lebanon")" />
+                <MudSelectItem Value="@("Tyre")" />
+                <MudSelectItem Value="@("Rayak")" />
+                <MudSelectItem Value="@("Akkar ")" />
+            </MudSelect>
+
+            <MudSelect Dense="true" T="string" Label="School" Variant="Variant.Outlined" @bind-Value="@_model.Major">
+                <MudSelectItem Value="@("School of Engineering")" />
+                <MudSelectItem Value="@("School of Pharmacy")" />
+                <MudSelectItem Value="@("School of Business")" />
+                <MudSelectItem Value="@("School of Arts&Sciences ")" />
+                <MudSelectItem Value="@("School of Education")" />
+            </MudSelect>
+
+
+            <MudTextField Class="mt-5" @bind-Value="@_model.Password" Label="Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" AdornmentAriaLabel="Show Password" />
+            <MudTextField Class="mt-5" @bind-Value="@_model.ConfirmPassword" Label="Confirm Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ShowPassword" AdornmentAriaLabel="Show Password" />
+            <MudText Typo="Typo.body2" Class="mt-5">If you have an account, please login <MudLink Href="/auth/login" Typo="Typo.body2">here</MudLink></MudText>
+            <ValidationSummary />
+
+            @if (!string.IsNullOrWhiteSpace(_errorMessage))
+            {
+                <MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
+            }
+        </MudCardContent>
+
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="_isBusy">Register</MudButton>
+        </MudCardActions>
+    </MudCard>
+
+</EditForm>
+
+

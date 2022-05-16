@@ -27,7 +27,7 @@ namespace LIUMarketplace.Shared.DTOs
         public string Campus { get; set; }
 
         [Required]
-        [StringLength(25)]
+        [StringLength(30)]
         public string Major { get; set; }
 
         [Required]
