@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIUMarketplace.Shared", "LI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIUMarketplace.UI", "LIUMarketplace.UI\LIUMarketplace.UI.csproj", "{05718459-E658-47B3-BD3F-962614864A36}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIUMarketplace.UI.Service", "LIUMarketplace.UI.Service\LIUMarketplace.UI.Service.csproj", "{2C682DDF-C030-4518-B078-A77647B07051}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{05718459-E658-47B3-BD3F-962614864A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05718459-E658-47B3-BD3F-962614864A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05718459-E658-47B3-BD3F-962614864A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C682DDF-C030-4518-B078-A77647B07051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C682DDF-C030-4518-B078-A77647B07051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C682DDF-C030-4518-B078-A77647B07051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C682DDF-C030-4518-B078-A77647B07051}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

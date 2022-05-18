@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LIUMarketplace.Shared\LIUMarketplace.Shared.csproj" />
+    <ProjectReference Include="..\LIUMarketplace.UI.Service\LIUMarketplace.UI.Service.csproj" />
   </ItemGroup>
 
 </Project>

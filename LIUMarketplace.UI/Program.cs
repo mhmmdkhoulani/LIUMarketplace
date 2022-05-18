@@ -1,5 +1,7 @@
 using Blazored.LocalStorage;
 using LIUMarketplace.UI;
+using LIUMarketplace.UI.Service;
+using LIUMarketplace.UI.Service.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -16,6 +18,7 @@ builder.Services.AddHttpClient("LIUMarketPlace.Api", client =>
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
 builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticattionStateProvider>();
+builder.Services.AddScoped<IAuthenticationService, HttpAuthenticaionService>();
 
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("LIUMarketPlace.Api"));
 

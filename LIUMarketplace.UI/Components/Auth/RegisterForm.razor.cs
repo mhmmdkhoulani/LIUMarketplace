@@ -40,6 +40,7 @@ namespace LIUMarketplace.UI.Components
 
         private bool _isBusy = false;
         private string _errorMessage = string.Empty;
+        public int spacing { get; set; } = 1;
 
         private async Task RegisterUserAsync()
         {
