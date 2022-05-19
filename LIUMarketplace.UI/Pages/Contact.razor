@@ -1,0 +1,53 @@
+﻿@page "/contact"
+
+
+<div class="container">
+
+    <MudGrid Spacing="@spacing" Justify="Justify.FlexStart">
+        <MudItem sm="12" md="6">
+            <EditForm Model="_model"  class="pa-5">
+
+                <DataAnnotationsValidator />
+                <MudCard Outlined="true">
+                    
+                    <MudCardContent>
+
+                        <MudTextField Label="Email" @bind-Value="@_model.Email" Variant="Variant.Outlined" Class="mt-5" />
+                        <MudTextField Class="mt-5" @bind-Value="@_model.Message" Label="Message" Variant="Variant.Outlined" InputType="InputType.Text" Lines="6" />
+                        <ValidationSummary />
+
+                        
+                    </MudCardContent>
+
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Send Message</MudButton>
+                    </MudCardActions>
+                </MudCard>
+
+            </EditForm>
+        </MudItem>
+        <MudItem sm="12" md="6" Class="pt-13">
+           <MudText Typo="Typo.h3" Class="mb-6">Get in Touch</MudText>
+           <MudText Typo="Typo.body1" Class="mb-6">body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</MudText>
+           <div>
+               <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+            <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+            <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+            <MudIconButton Icon="@Icons.Custom.Brands.YouTube" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Medium" />
+           </div>
+        </MudItem>
+    </MudGrid>
+
+</div>
+
+<Features />
+
+<Footer />
+
+
+<style>
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+    }
+</style>
