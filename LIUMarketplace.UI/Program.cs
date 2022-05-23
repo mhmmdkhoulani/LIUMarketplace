@@ -18,7 +18,7 @@ builder.Services.AddHttpClient("LIUMarketPlace.Api", client =>
 builder.Services.AddTransient<AuthorizationMessageHandler>();
 
 builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticattionStateProvider>();
-builder.Services.AddScoped<IAuthenticationService, HttpAuthenticaionService>();
+builder.Services.AddHttpClientServices();
 
 builder.Services.AddScoped(sp => sp.GetService<IHttpClientFactory>().CreateClient("LIUMarketPlace.Api"));
 

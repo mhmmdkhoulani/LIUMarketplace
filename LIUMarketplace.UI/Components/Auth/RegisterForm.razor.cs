@@ -19,22 +19,19 @@ using LIUMarketplace.UI.Shared;
 using MudBlazor;
 using Blazored.LocalStorage;
 using LIUMarketplace.Shared.DTOs;
+using LIUMarketplace.UI.Service.Interfaces;
+using LIUMarketplace.UI.Service.Exceptions;
 
 namespace LIUMarketplace.UI.Components
 {
     public partial class RegisterForm
     {
         [Inject]
-        public HttpClient HttpClient { get; set; }
-
-        [Inject]
-        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        public IAuthenticationService Authentication { get; set; }
 
         [Inject]
         public NavigationManager Navigation { get; set; }
 
-        [Inject]
-        public ILocalStorageService Storage { get; set; }
 
         private RegisterDto _model = new RegisterDto();
 
@@ -47,23 +44,20 @@ namespace LIUMarketplace.UI.Components
             _isBusy = true;
             _errorMessage = string.Empty;
 
-            var response = await HttpClient.PostAsJsonAsync("/api/auth/register", _model);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
-                //store token in local storage 
-                var token = result.Token;
-                await Storage.SetItemAsStringAsync("access_token", token);
-                await Storage.SetItemAsync<DateTime>("expiry_date", result.ExpiresOn);
-                await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                Navigation.NavigateTo("/");
-
+                await Authentication.RegisterUserAsync(_model);
+                Navigation.NavigateTo("/auth/login");
             }
-            else
+            catch (ApiException ex)
             {
-                var errorResponse = await response.Content.ReadFromJsonAsync<AuthResponse>();
-                _errorMessage = errorResponse.Messages;
+                //handel error of the api
+                _errorMessage = ex.AuthResponse.Messages;
+            }
+            catch(Exception ex)
+            {
+                //handle errors 
+                _errorMessage = ex.Message;
             }
             _isBusy = false;
         }
