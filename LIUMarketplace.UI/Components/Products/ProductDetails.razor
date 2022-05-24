@@ -1,0 +1,32 @@
+﻿@namespace LIUMarketplace.UI.Components
+
+<div class="container mt-20"> 
+    <MudGrid Spacing="3" Justify="Justify.Center">
+
+    <MudItem xs="4">
+        <MudImage Fluid="true" Src="@_product.ImageCoverUrl" Alt="book" Elevation="25" Class="rounded-lg ma-4"/>
+    </MudItem>
+     <MudItem xs="1">
+    </MudItem>
+    <MudItem xs="7" Class="pa-15">
+        <MudText Class="mb-10" Typo="Typo.h1">@_product.Price</MudText>
+        <MudText Class="mb-10" Typo="Typo.h4" Color="Color.Primary">@_product.Name</MudText>
+        <MudText Class="mb-5" Typo="Typo.body1">@_product.Desciption</MudText>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="async () => await OnAddToCartClicked.InvokeAsync()">Add to cart</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="async () => await OnAddToFavoriteClicked.InvokeAsync()">Add to favorite</MudButton>
+    </MudItem>
+
+</MudGrid>
+
+</div>
+
+
+
+<style>
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+    }
+
+
+</style>

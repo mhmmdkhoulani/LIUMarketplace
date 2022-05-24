@@ -1,0 +1,16 @@
+﻿@namespace LIUMarketplace.UI.Components
+
+<MudCard>
+    <MudCardMedia Image="@ProductDetails.ImageCoverUrl" Height="200" />
+    <MudCardContent>
+        <MudText Typo="Typo.h5">Old Book</MudText>
+        <MudText Typo="Typo.body2">@ProductDetails.Name</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" OnClick="async () => await OnFavoriteClicked.InvokeAsync(ProductDetails)"/>
+        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" OnClick="async () => await OnEditClicked.InvokeAsync(ProductDetails)"/>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="async () => await OnViewClicked.InvokeAsync(ProductDetails)">Learn More</MudButton>
+    </MudCardActions>
+</MudCard>
+
+

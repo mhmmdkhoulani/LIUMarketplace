@@ -10,7 +10,7 @@ namespace LIUMarketPlace.Api.Services
     public interface IProductService
     {
         Task<ProductDetailsDto> AddProductAsync(ProductDto dto);
-        Task<PagedList<ProductDetailsDto>> GetAllProductAsync(string query = "", int page = 1, int pageSize = 12);
+        Task<IEnumerable<ProductDetailsDto>> GetAllProductAsync();
         Task<IEnumerable<ProductDetailsDto>> GetAllProductByCategoryIdAsync(int id);
         Task<ProductDetailsDto> GetProductByIdAsync(string id);
         Task<bool> IsValidCategoryId(int id);
@@ -52,26 +52,13 @@ namespace LIUMarketPlace.Api.Services
             _db.SaveChanges();
         }
 
-        public async Task<PagedList<ProductDetailsDto>> GetAllProductAsync(string query = "", int page = 1, int pageSize = 12)
+        public async Task<IEnumerable<ProductDetailsDto>> GetAllProductAsync()
         {
-            if (string.IsNullOrWhiteSpace(query))
-                query = "";
-            if (page < 1)
-                page = 1;
-            if (pageSize < 5)
-                pageSize = 5;
-            if (pageSize > 50)
-                pageSize = 50;
+            var products = _db.Products
+               .OrderByDescending(p => p.CreatedTime)
+               .Include(p => p.Category);
 
-            var products = await (from p in _db.Products
-                                  where p.CreatedByUserId == _identityOption.UserId 
-                               && (p.Name.Contains(query)
-                                  || p.Description.Contains(query))
-                               orderby p.CreatedTime descending
-                               select p).ToArrayAsync();
-           
-            var pagedList = new PagedList<ProductDetailsDto>(products.Select(p => p.ToProductDetailsDto()),page,pageSize);
-            return pagedList;
+            return await products.Select(p => p.ToProductDetailsDto()).ToListAsync();
         }
 
         public async Task<IEnumerable<ProductDetailsDto>> GetAllProductByCategoryIdAsync(int id)

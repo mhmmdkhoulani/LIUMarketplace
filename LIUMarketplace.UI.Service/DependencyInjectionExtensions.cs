@@ -11,8 +11,10 @@ namespace LIUMarketplace.UI.Service
     public static class DependencyInjectionExtensions
     {
         public static IServiceCollection AddHttpClientServices(this IServiceCollection services)
-        {
-            return services.AddScoped<IAuthenticationService, HttpAuthenticaionService>();
+        {   
+            return services.AddScoped<IAuthenticationService, HttpAuthenticaionService>()
+                           .AddScoped<IProductService, HttpProductService>()
+                           .AddScoped<ICategoryService, HttpCategoryService>();
                           
         }
     }
