@@ -1,0 +1,66 @@
+﻿@namespace LIUMarketplace.UI.Components
+<div class="container">
+
+<EditForm Model="_model" OnValidSubmit="SubmitFormAsync" class="p-5 mt-5">
+
+    <DataAnnotationsValidator />
+    <MudCard Outlined="true">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5" Align="Align.Center">Add new product</MudText>
+            </CardHeaderContent>
+
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTextField Label="Name" @bind-Value="@_model.Name" Variant="Variant.Outlined" Class="mt-5" />
+            <MudTextField Class="mt-5" @bind-Value="@_model.Description" Label="Message" Variant="Variant.Outlined" InputType="InputType.Text" Lines="3" />
+
+            <MudTextField Label="Price" @bind-Value="@_model.Price" Variant="Variant.Outlined" Class="mt-5" />
+
+            <MudSelect Dense="true" T="int" Label="Category" Variant="Variant.Outlined" @bind-Value="@_model.CategoryId" Class="mt-3">
+                @foreach (var category in _categories)
+                {
+                    <MudSelectItem  Value="@(category.Id)">@category.Name</MudSelectItem>
+                }
+
+            </MudSelect>
+            <InputFile id="fileInput" OnChange="OnChooseFileAsync" hidden multiple />
+            <MudButton Class="mt-3" HtmlTag="label"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Filled.CloudUpload"
+                       for="fileInput">
+                Upload Image
+            </MudButton>
+
+            @if (_stream != null)
+            {
+                <MudText Typo="Typo.subtitle1" Align="Align.Center">@_fileName</MudText>
+
+            }
+
+
+            <ValidationSummary />
+
+            @if (!string.IsNullOrWhiteSpace(_errorMessage))
+            {
+                <MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
+            }
+        </MudCardContent>
+
+        <MudCardActions>
+            <MudDivider />
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="_isBusy">Save</MudButton>
+        </MudCardActions>
+    </MudCard>
+
+</EditForm>
+
+</div>
+
+<style>
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+    }
+</style>
