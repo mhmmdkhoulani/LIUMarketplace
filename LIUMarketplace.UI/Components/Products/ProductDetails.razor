@@ -9,11 +9,11 @@
      <MudItem xs="1">
     </MudItem>
     <MudItem xs="7" Class="pa-15">
-        <MudText Class="mb-10" Typo="Typo.h1">@_product.Price</MudText>
+        <MudText Class="mb-10" Typo="Typo.h2">$ @_product.Price</MudText>
         <MudText Class="mb-10" Typo="Typo.h4" Color="Color.Primary">@_product.Name</MudText>
         <MudText Class="mb-5" Typo="Typo.body1">@_product.Desciption</MudText>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="async () => await OnAddToCartClicked.InvokeAsync()">Add to cart</MudButton>
-        <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="async () => await OnAddToFavoriteClicked.InvokeAsync()">Add to favorite</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => AddItemToCart(_product) ">Add to cart</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick=" () =>  AddItemToFavorite(_product)">Add to favorite</MudButton>
     </MudItem>
 
 </MudGrid>

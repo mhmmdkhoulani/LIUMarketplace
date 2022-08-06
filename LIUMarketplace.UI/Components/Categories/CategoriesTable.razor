@@ -1,0 +1,31 @@
+﻿@namespace LIUMarketplace.UI.Components
+<div class="container mb-15">
+    <MudTable Items="@_categories" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_isBusy" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            <MudTh><MudText Typo="Typo.h6" Color="Color.Primary">Category ID</MudText></MudTh>
+            <MudTh><MudText Typo="Typo.h6" Color="Color.Primary">Category Name</MudText></MudTh>
+            <MudTh><MudText Typo="Typo.h6" Color="Color.Primary">Actions</MudText></MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+
+            <MudTd DataLabel="Id">@context.Id</MudTd>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Actions">
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Info" OnClick=" () =>  EditCategory(context)" />
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick=" () =>  DeleteCategory(context)" />
+            </MudTd>
+        </RowTemplate>
+
+    </MudTable>
+
+
+
+</div>
+
+<style>
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+    }
+</style>

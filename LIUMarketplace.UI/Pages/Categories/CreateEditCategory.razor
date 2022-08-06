@@ -1,0 +1,11 @@
+﻿@page "/categories/form"
+@page "/categories/form/{id:int}"
+@attribute [Authorize(Roles ="Admin")]
+
+<CategoryForm Id="@Id"/>
+<Footer />
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+}

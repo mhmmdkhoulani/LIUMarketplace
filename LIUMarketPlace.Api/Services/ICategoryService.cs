@@ -9,7 +9,7 @@ namespace LIUMarketPlace.Api.Services
     public interface ICategoryService
     {
         Task<Category> AddCategoryAsync(CategoryDto model);
-        Task<Category> UpdateCategoryAsync(Category model);
+        Task<Category> UpdateCategoryAsync(CategoryDto model);
         Task DeleteCategoryAsync(int id);
         Task<Category> GetCategoryByIdAsync(int id);
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
@@ -42,7 +42,7 @@ namespace LIUMarketPlace.Api.Services
             if(category != null)
             {
                 _db.Categories.Remove(category);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
             }
         }
 
@@ -63,7 +63,7 @@ namespace LIUMarketPlace.Api.Services
             return null;
         }
 
-        public async Task<Category> UpdateCategoryAsync(Category model)
+        public async Task<Category> UpdateCategoryAsync(CategoryDto model)
         {
             var category = await _db.Categories.FindAsync(model.Id);
 

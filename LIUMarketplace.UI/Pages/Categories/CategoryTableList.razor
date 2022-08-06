@@ -1,0 +1,18 @@
+﻿@page "/categories"
+
+
+<CategoriesTable />
+<div class="floating-button">
+    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"  OnClick="() => AddCategory()"/>
+
+</div>
+
+<Footer />
+
+<style> 
+    .floating-button { 
+        position: fixed; 
+        bottom: 400px; 
+        right: 50px; 
+    } 
+</style> 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -51,6 +52,11 @@ namespace LIUMarketplace.Models.Models
        
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
+
+        public virtual List<CartItem> CartItems { get; set; }
+        public virtual List<FavoriteItem> FavoriteItems { get; set; }
+
+
 
     }
 }

@@ -3,13 +3,17 @@
 <MudCard>
     <MudCardMedia Image="@ProductDetails.ImageCoverUrl" Height="200" />
     <MudCardContent>
-        <MudText Typo="Typo.h5">Old Book</MudText>
-        <MudText Typo="Typo.body2">@ProductDetails.Name</MudText>
+        <MudText Typo="Typo.h5">@ProductDetails.Name</MudText>
+        <MudText Typo="Typo.body2">@ProductDetails.Desciption</MudText>
     </MudCardContent>
     <MudCardActions>
-        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" OnClick="async () => await OnFavoriteClicked.InvokeAsync(ProductDetails)"/>
-        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" OnClick="async () => await OnEditClicked.InvokeAsync(ProductDetails)"/>
-        <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="async () => await OnViewClicked.InvokeAsync(ProductDetails)">Learn More</MudButton>
+        <MudIconButton Icon="@Icons.Filled.ShoppingCart" Color="Color.Default" OnClick="async () => await OnAddToCartClicked.InvokeAsync(ProductDetails)" />
+
+        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" OnClick="async () => await OnDeleteClicked.InvokeAsync(ProductDetails)" />
+
+
+        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Default" OnClick="async () => await OnEditClicked.InvokeAsync(ProductDetails)" />
+        <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="async () => await OnViewClicked.InvokeAsync(ProductDetails)">View</MudButton>
     </MudCardActions>
 </MudCard>
 

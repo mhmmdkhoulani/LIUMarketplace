@@ -10,6 +10,10 @@ namespace LIUMarketplace.UI.Service.Interfaces
     public interface ICategoryService
     {
         Task<IEnumerable<CategoryDto>> GetCategoriesAsync();
+        Task<CategoryDto> AddCategoryAsync(CategoryDto dto);
+        Task<CategoryDto> UpdateCategoryAsync(CategoryDto dto);
+        Task DeleteCategoryAsync(int id);
+        Task<CategoryDto> GetCategoryByIdAsync(int id);
 
     }
 }

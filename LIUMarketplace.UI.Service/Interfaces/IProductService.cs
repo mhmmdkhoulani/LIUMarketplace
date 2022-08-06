@@ -10,8 +10,13 @@ namespace LIUMarketplace.UI.Service.Interfaces
     public interface IProductService
     {
         Task<IEnumerable<ProductDetailsDto>> GetProductsAsync();
+        Task<IEnumerable<ProductDetailsDto>> GetProductsByCampusAsync(string campus);
+        Task<IEnumerable<ProductDetailsDto>> GetProductsByCartAsync();
+        Task<IEnumerable<ProductDetailsDto>> GetProductsByFavoriteAsync();
+        Task<IEnumerable<ProductDetailsDto>> GetProductsByCategoryAsync(int id);
         Task<ProductDetailsDto> GetProductByIdAsync(string id);
-        Task<ProductDetailsDto> AddProductAsynv(ProductDto dto, FormFile coverFile);
-        Task<ProductDetailsDto> EditProductAsynv(ProductDto dto, FormFile coverFile);
+        Task<ProductDetailsDto> AddProductAsyn(ProductDto dto, FormFile coverFile);
+        Task<ProductDetailsDto> EditProductAsyn(ProductDto dto, FormFile coverFile);
+        Task DeleteProductAsync(string id);
     }
 }

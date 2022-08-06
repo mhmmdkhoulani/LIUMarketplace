@@ -6,12 +6,16 @@
         <MudNavLink Href="/">Home</MudNavLink>
         <MudNavLink Href="/products">Products</MudNavLink>
         <MudNavLink Href="/about">About Us</MudNavLink>
-        <MudNavLink Href="/contact" >Contact Us</MudNavLink>
-        <MudNavGroup Title="My Account"Expanded="true">
-            <MudNavLink Href="/profile" >Profile</MudNavLink>
-            <MudNavLink Href="/favorite" >Favorite</MudNavLink>
-            <MudNavLink Href="/cart" >Cart</MudNavLink>
+        <MudNavLink Href="/contact">Contact Us</MudNavLink>
+        <MudNavGroup Title="My Account" Expanded="true">
+            <MudNavLink Href="/profile">Profile</MudNavLink>
+            <MudNavLink Href="/favorite">Favorite</MudNavLink>
+            <MudNavLink Href="/cart">Cart</MudNavLink>
         </MudNavGroup>
+        <AuthorizeView Roles="Admin">
+        <MudNavLink Href="/categories">Categories</MudNavLink>
+        <MudNavLink Href="/users">Users</MudNavLink>
+        </AuthorizeView>
     </MudNavMenu>
 </MudPaper>
 

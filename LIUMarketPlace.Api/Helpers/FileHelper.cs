@@ -6,7 +6,7 @@ namespace LIUMarketPlace.Api.Helpers
     {
         public static async Task<string> ImageUpload(IFormFile file)
         {
-            string connectionString = @"DefaultEndpointsProtocol=https;AccountName=liumrketplace;AccountKey=luavbvJJiFYqang5Q+axbEev5D/QvNEpskujIC5GrTnam774Jktv0r3btgghf1wxER5K94zIj6aJ+AStE/2mXQ==;EndpointSuffix=core.windows.net";
+            string connectionString = @"DefaultEndpointsProtocol=https;AccountName=liumrketpxlace;AccountKey=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
             string containerName = "productcover";
 
             BlobContainerClient blobContainerClient = new BlobContainerClient(connectionString, containerName);

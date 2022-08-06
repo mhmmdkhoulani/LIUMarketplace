@@ -27,6 +27,18 @@ namespace LIUMarketplace.UI.Components
         [Inject]
         public IProductService ProudctService { get; set; }
 
+        [Inject]
+        public ICartService CartService { get; set; }
+
+        [Inject]
+        public IFavoriteService FavoriteSevice { get; set; }
+
+        [Inject]
+        public NavigationManager Navigation { get; set; }
+
+        [Inject]
+        public IDialogService DialogService { get; set; }
+
         [Parameter]
         public string Id { get; set; }
 
@@ -57,6 +69,76 @@ namespace LIUMarketplace.UI.Components
             }
 
             _isBusy = false;
+        }
+
+        private async void AddItemToCart(ProductDetailsDto product)
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("ContentText", $"Do you really Add {product.Name} to the cart?");
+            parameters.Add("ButtonText", "Add");
+            parameters.Add("Color", Color.Primary);
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var dialog = DialogService.Show<ConfirmationDialog>("Add", parameters, options);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                var cart = await CartService.GetCartAsync();
+                var item = new CartItemDto
+                {
+                    CartId = cart.CartId,
+                    ProductId = product.Id,
+                };
+
+                try
+                {
+                    await CartService.AddItemToCartAsync(item);
+                    Navigation.NavigateTo($"/cart");
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
+            }
+        }
+
+        private async void AddItemToFavorite(ProductDetailsDto product)
+        {
+            var parameters = new DialogParameters();
+            parameters.Add("ContentText", $"Do you really Add {product.Name} to Favotit List?");
+            parameters.Add("ButtonText", "Add");
+            parameters.Add("Color", Color.Primary);
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var dialog = DialogService.Show<ConfirmationDialog>("Add", parameters, options);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                var fav = await FavoriteSevice.GetFavoriteAsync();
+                var item = new FavoriteItemDto
+                {
+                    FavoriteId = fav.FavoriteId,
+                    ProductId = product.Id,
+                };
+
+                try
+                {
+                    await FavoriteSevice.AddItemToFavoriteAsync(item);
+                    Navigation.NavigateTo($"/favorite");
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
+            }
         }
         protected override async Task OnInitializedAsync()
         {

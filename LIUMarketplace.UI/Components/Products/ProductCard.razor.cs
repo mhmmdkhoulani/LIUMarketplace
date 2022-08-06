@@ -33,6 +33,23 @@ namespace LIUMarketplace.UI.Components
         public EventCallback<ProductDetailsDto> OnEditClicked { get; set; }
 
         [Parameter]
-        public EventCallback<ProductDetailsDto> OnFavoriteClicked { get; set; }
+        public EventCallback<ProductDetailsDto> OnAddToCartClicked { get; set; }
+
+        [Parameter]
+        public EventCallback<ProductDetailsDto> OnDeleteClicked { get; set; }
+
+        //[Inject]
+        //public JwtAuthenticattionStateProvider AuthenticattionStateProvider { get; set; }
+
+
+        
+        //private bool _isAuther => ProductDetails.Id.Equals(getUserId());
+
+        //private async Task<string> getUserId()
+        //{
+        //    var user = (await AuthenticattionStateProvider.GetAuthenticationStateAsync()).User;
+        //    var UserId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
+        //    return UserId;
+        //}
     }
 }

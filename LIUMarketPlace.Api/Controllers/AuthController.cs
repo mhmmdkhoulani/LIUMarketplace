@@ -10,10 +10,12 @@ namespace LIUMarketPlace.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly IMailService _mailService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IMailService mailService)
         {
             _authService = authService;
+            _mailService = mailService;
         }
 
         // /api/auth/register
@@ -32,6 +34,15 @@ namespace LIUMarketPlace.Api.Controllers
                 return BadRequest(result);
             }
 
+            var filePath = $"{Directory.GetCurrentDirectory()}\\Templates\\EmailTemplate.html";
+            var str = new StreamReader(filePath);
+
+            var mailText = str.ReadToEnd();
+            str.Close();
+
+            mailText = mailText.Replace("[email]", model.Email);
+
+            await _mailService.SendEmailAsync(model.Email, "Welcome To LIU Marketplace", mailText);
             return Ok(result);
         }
 

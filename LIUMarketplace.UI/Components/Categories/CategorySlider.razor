@@ -7,27 +7,30 @@
     <MudGrid Spacing="@spacing" Justify="Justify.FlexStart">
         @if (_isBusy)
         {
-            <MudItem xs="6" sm="4" md="2">
+            for(int i = 0; i> 5; i++){
+                <MudItem xs="6" sm="4" md="2">
                 <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="110px" />
             </MudItem>
+            }
         }
         else
         {
-            @if (_categories != null)
+            @if (_categories.Count() > 0)
             {
                 foreach (var category in _categories)
                 {
                     <MudItem xs="6" sm="4" md="2">
-                        <MudPaper Class="pa-16 mb-2">
-                            <MudText Typo="Typo.body2"><MudLink Href="#" onclick=>@category.Name</MudLink></MudText>
+                        <MudPaper Class="pa-16 mb-2" >
+                            <MudText Typo="Typo.h6" Color="Color.Primary" Style="@_textStyle" @onclick="() => OnViewEvent(category)">@category.Name</MudText>
                         </MudPaper>
                     </MudItem>
+                    
 
                 }
             }
             else
             {
-                  <MudText Typo="Typo.body2"><MudLink Href="#" onclick=>There is no category available now</MudLink></MudText>
+                  <MudText Typo="Typo.h6" Color="Color.Info" Align="Align.Center">There is no category available now</MudText>
             }
         }
 
@@ -41,5 +44,5 @@
     .container {
         padding: 40px;
         margin-top: 40px;
-    }
+}
 </style>

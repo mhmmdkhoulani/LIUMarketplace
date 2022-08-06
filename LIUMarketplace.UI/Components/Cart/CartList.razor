@@ -1,0 +1,66 @@
+﻿@namespace LIUMarketplace.UI.Components
+@using System.Security.Claims
+
+<div class="container">
+
+    <div class="mb-15">
+        <MudText Typo="Typo.h4">Shopping Cart</MudText>
+    </div>
+
+    
+
+    @if (_products.Count() > 0)
+    {
+        foreach (var item in _products)
+        {
+            <MudPaper Class="pa-5 ma-2">
+    <MudGrid Spacing="2" Justify="Justify.FlexStart">
+        
+        <MudItem xs="12" sm="4" md="4">
+            <MudGrid Class="d-flex align-center">
+                <MudItem xs="12" sm="6">
+                    <MudImage Src="@item.ImageCoverUrl" Width="130" Elevation="25" Class="rounded-lg" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudText Typo="Typo.h5">$ @item.Price</MudText>
+                    <MudText Typo="Typo.h6" Color="Color.Primary">@item.Name</MudText>
+                    <MudText Typo="Typo.subtitle1">@item.Category.Name</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="12" sm="8" Class="d-flex justify-space-around align-center">
+            <div>
+                <AuthorizeView>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ContactOwnerAsync(item, 
+                    context.User.FindFirst(ClaimTypes.GivenName).Value,
+                    context.User.FindFirst(ClaimTypes.Surname).Value,
+                    context.User.FindFirst(ClaimTypes.Email).Value)">Contact Owner</MudButton>
+
+                </AuthorizeView>
+            </div>
+            <div>
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Default" OnClick="() => DeleteItemAsync(item)" />
+            </div>
+        </MudItem>
+
+
+    </MudGrid>
+
+</MudPaper>
+        }
+    }
+    else
+    {
+        <MudText Typo="Typo.h3" Align="Align.Center" Color="Color.Info">Sorry, You dont have any item on cart.</MudText>
+    }
+
+
+</div>
+
+
+<style>
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+    }
+</style> 

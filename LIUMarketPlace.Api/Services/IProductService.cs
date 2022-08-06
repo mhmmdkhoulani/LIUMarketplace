@@ -11,11 +11,14 @@ namespace LIUMarketPlace.Api.Services
     {
         Task<ProductDetailsDto> AddProductAsync(ProductDto dto);
         Task<IEnumerable<ProductDetailsDto>> GetAllProductAsync();
+        Task<IEnumerable<ProductDetailsDto>> GetAllProductByCampusAsync(string campus);
+        Task<IEnumerable<ProductDetailsDto>> GetAllProductByCartAsync(string cart);
+        Task<IEnumerable<ProductDetailsDto>> GetAllProductByFavoriteAsync(string favorite);
         Task<IEnumerable<ProductDetailsDto>> GetAllProductByCategoryIdAsync(int id);
         Task<ProductDetailsDto> GetProductByIdAsync(string id);
         Task<bool> IsValidCategoryId(int id);
         Task DeleteProductAsync(string id);
-        Task<ProductDetailsDto> UpdateMovieAsync(ProductDto product);
+        Task<ProductDetailsDto> UpdateProductAsync(ProductDto product);
     }
 
     public class ProductService : IProductService
@@ -61,6 +64,34 @@ namespace LIUMarketPlace.Api.Services
             return await products.Select(p => p.ToProductDetailsDto()).ToListAsync();
         }
 
+        public async Task<IEnumerable<ProductDetailsDto>> GetAllProductByCampusAsync(string campus)
+        {
+            var products = await (from p in _db.Products
+                                  .Include(p => p.Category)
+                                  join u in _db.Users
+                                  on p.CreatedByUserId equals u.Id
+                                  where u.Campus == campus
+
+                                  select p).ToArrayAsync();
+                                  
+
+            return  products.Select(p => p.ToProductDetailsDto()).ToList();
+        }
+
+        public async Task<IEnumerable<ProductDetailsDto>> GetAllProductByCartAsync(string cart)
+        {
+            var products = await(from p in _db.Products
+                                 .Include(p => p.Category)
+                                 join ci in _db.CartItems
+                                 on p.Id equals ci.ProductId
+                                 where ci.CartId == cart
+
+                                 select p).ToArrayAsync();
+
+
+            return products.Select(p => p.ToProductDetailsDto()).ToList();
+        }
+
         public async Task<IEnumerable<ProductDetailsDto>> GetAllProductByCategoryIdAsync(int id)
         {
             var products = _db.Products
@@ -69,6 +100,20 @@ namespace LIUMarketPlace.Api.Services
                .Where(p => p.CategoryId == id);
 
             return await products.Select(p => p.ToProductDetailsDto()).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProductDetailsDto>> GetAllProductByFavoriteAsync(string favorite)
+        {
+            var products = await(from p in _db.Products
+                                 .Include(p => p.Category)
+                                 join f in _db.FavoriteItems
+                                 on p.Id equals f.ProductId
+                                 where f.FavoriteId == favorite
+
+                                 select p).ToArrayAsync();
+
+
+            return products.Select(p => p.ToProductDetailsDto()).ToList();
         }
 
         public async Task<ProductDetailsDto> GetProductByIdAsync(string id)
@@ -90,7 +135,7 @@ namespace LIUMarketPlace.Api.Services
             return result;
         }
 
-        public async Task<ProductDetailsDto> UpdateMovieAsync(ProductDto dto)
+        public async Task<ProductDetailsDto> UpdateProductAsync(ProductDto dto)
         {
             var product = await _db.Products.FindAsync(dto.Id);
 

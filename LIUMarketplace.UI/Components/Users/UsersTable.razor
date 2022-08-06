@@ -1,0 +1,38 @@
+﻿@namespace LIUMarketplace.UI.Components
+<div class="container mb-15">
+    <MudTable Items="@_users" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_isBusy" LoadingProgressColor="Color.Info">
+        <HeaderContent>
+            
+            <MudTh><MudText Typo="Typo.h6" Color="Color.Primary">Full Name</MudText></MudTh>
+            <MudTh><MudText Typo="Typo.h6"Color="Color.Primary">Email</MudText></MudTh>
+            <MudTh><MudText Typo="Typo.h6"Color="Color.Primary">Campus</MudText></MudTh>
+            <MudTh><MudText Typo="Typo.h6"Color="Color.Primary">School</MudText></MudTh>
+            <MudTh><MudText Typo="Typo.h6" Color="Color.Primary">Actions</MudText></MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+
+            <MudTd DataLabel="Full Name">@context.FirstName @context.LastName</MudTd>
+            <MudTd DataLabel="Email">@context.Email</MudTd>
+            <MudTd DataLabel="Campus">@context.Campus</MudTd>
+            <MudTd DataLabel="School">@context.Major</MudTd>
+            <MudTd DataLabel="Actions">
+                <MudIconButton Icon="@Icons.Filled.RemoveRedEye" Color="Color.Info" OnClick=" () =>  ViewUser(context)" />
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick=" () =>  DeleteUser(context)" />
+            </MudTd>
+        </RowTemplate>
+
+    </MudTable>
+
+
+
+</div>
+
+<style>
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+    }
+</style>
+
+

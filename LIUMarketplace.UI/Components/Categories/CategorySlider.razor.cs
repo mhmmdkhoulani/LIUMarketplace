@@ -19,6 +19,7 @@ using LIUMarketplace.UI.Shared;
 using MudBlazor;
 using LIUMarketplace.UI.Service.Interfaces;
 using LIUMarketplace.Shared.DTOs;
+using BlazorComponentUtilities;
 
 namespace LIUMarketplace.UI.Components
 {
@@ -27,7 +28,14 @@ namespace LIUMarketplace.UI.Components
         [Inject]
         public ICategoryService CategoryService { get; set; }
 
+        [Inject]
+         public NavigationManager NavigationManager { get; set; }
+        
+
         private IEnumerable<CategoryDto> _categories = new List<CategoryDto>();
+        private string _textStyle => new StyleBuilder()
+                                         .AddStyle("cursor", "pointer")
+                                         .Build();
         private bool _isBusy = false;
         private string _errorMessage = string.Empty;
         public int spacing { get; set; } = 2;
@@ -45,6 +53,11 @@ namespace LIUMarketplace.UI.Components
             }
 
             _isBusy = false;
+        }
+
+        private void OnViewEvent(CategoryDto category)
+        {
+            NavigationManager.NavigateTo($"/products/category/{category.Id}");
         }
 
         protected override async Task OnInitializedAsync()

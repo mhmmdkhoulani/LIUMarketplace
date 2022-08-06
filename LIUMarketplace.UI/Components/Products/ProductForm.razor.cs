@@ -11,11 +11,21 @@ namespace LIUMarketplace.UI.Components
 {
     public partial class ProductForm
     {
+        [Parameter]
+        public string Id { get; set; }
+
         [Inject]
         public IProductService ProductService { get; set; }
        
         [Inject]
         public ICategoryService CategoryService { get; set; }
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
+
+
+        private bool _isEditMode => Id != null; 
 
         private ProductDto _model = new ProductDto();
         private IEnumerable<CategoryDto> _categories = new List<CategoryDto>();
@@ -25,7 +35,33 @@ namespace LIUMarketplace.UI.Components
         private string _errorMessage = string.Empty;
         private async Task SubmitFormAsync()
         {
+            _isBusy = true;
+            try
+            {
+                _model.Id = Id;
+                FormFile formfile = null;
+                if(_stream != null)
+                {
+                    formfile = new FormFile(_stream, _fileName);
+                }
+                if (_isEditMode)
+                {
+                    var result = await ProductService.EditProductAsyn(_model, formfile);
+                    NavigationManager.NavigateTo("/products");
+                }
+                else
+                {
+                    var result = await ProductService.AddProductAsyn(_model, formfile);
+                    NavigationManager.NavigateTo("/products");
+                }
+                
+            }
+            catch (Exception ex)
+            {
 
+                _errorMessage = ex.Message;
+            }
+            _isBusy = false;
         }
 
         private async Task GetCategoriesAsync()
@@ -39,6 +75,27 @@ namespace LIUMarketplace.UI.Components
             {
                 _errorMessage = ex.Message;
             }
+        }
+
+        private async Task FetchProductByIdAsync()
+        {
+            _isBusy = true;
+            try
+            {
+                var result = await ProductService.GetProductByIdAsync(Id);
+                _model.Name = result.Name;
+                _model.Description = result.Desciption;
+                _model.Price = result.Price;
+                _model.ImageCoverUrl = result.ImageCoverUrl;
+
+            }
+            catch (Exception ex)
+            {
+
+                _errorMessage = ex.Message;
+            }
+            _isBusy = false;
+
         }
         private async Task OnChooseFileAsync (InputFileChangeEventArgs e)
         {
@@ -73,6 +130,9 @@ namespace LIUMarketplace.UI.Components
         protected override async Task OnInitializedAsync()
         {
             await GetCategoriesAsync();
+
+            if(_isEditMode)
+                await FetchProductByIdAsync();
         }
     }
 }

@@ -1,60 +1,84 @@
 ﻿@namespace LIUMarketplace.UI.Components
 <div class="container">
 
-<EditForm Model="_model" OnValidSubmit="SubmitFormAsync" class="p-5 mt-5">
+    <EditForm Model="_model" OnValidSubmit="SubmitFormAsync" class="p-5 mt-5">
 
-    <DataAnnotationsValidator />
-    <MudCard Outlined="true">
-        <MudCardHeader>
-            <CardHeaderContent>
-                <MudText Typo="Typo.h5" Align="Align.Center">Add new product</MudText>
-            </CardHeaderContent>
+        <DataAnnotationsValidator />
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    @if (_isEditMode)
+                    {
+                        <MudText Typo="Typo.h5" Align="Align.Center">Edit the product</MudText>
 
-        </MudCardHeader>
-        <MudCardContent>
-            <MudTextField Label="Name" @bind-Value="@_model.Name" Variant="Variant.Outlined" Class="mt-5" />
-            <MudTextField Class="mt-5" @bind-Value="@_model.Description" Label="Message" Variant="Variant.Outlined" InputType="InputType.Text" Lines="3" />
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h5" Align="Align.Center">Add new product</MudText>
 
-            <MudTextField Label="Price" @bind-Value="@_model.Price" Variant="Variant.Outlined" Class="mt-5" />
+                    }
+                </CardHeaderContent>
 
-            <MudSelect Dense="true" T="int" Label="Category" Variant="Variant.Outlined" @bind-Value="@_model.CategoryId" Class="mt-3">
-                @foreach (var category in _categories)
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTextField Label="Name" @bind-Value="@_model.Name" Variant="Variant.Outlined" Class="mt-5" />
+                <MudTextField Class="mt-5" @bind-Value="@_model.Description" Label="Description" Variant="Variant.Outlined" InputType="InputType.Text" Lines="3" />
+
+                <MudTextField Label="Price" @bind-Value="@_model.Price" Variant="Variant.Outlined" Class="mt-5" />
+
+                <MudSelect Dense="true" T="int" Label="Category" Variant="Variant.Outlined" @bind-Value="@_model.CategoryId" Class="mt-3">
+                    @foreach (var category in _categories)
+                    {
+                        <MudSelectItem Value="@(category.Id)">@category.Name</MudSelectItem>
+                    }
+                </MudSelect>
+                @if (_isEditMode)
                 {
-                    <MudSelectItem  Value="@(category.Id)">@category.Name</MudSelectItem>
+                    <MudImage Src="@_model.ImageCoverUrl" Alt="@_model.Name" Elevation="25" Width="600" Class="rounded-lg my-12 d-block" />
+                    <InputFile id="fileInput" OnChange="OnChooseFileAsync" hidden multiple />
+                    <MudButton Class="mt-3" HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Filled.CloudUpload"
+                           for="fileInput">
+                        Choose New Image
+                    </MudButton>
+                }
+                else
+                {
+                    <InputFile id="fileInput" OnChange="OnChooseFileAsync" hidden multiple />
+                    <MudButton Class="mt-3" HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Filled.CloudUpload"
+                           for="fileInput">
+                        Upload Image
+                    </MudButton>
                 }
 
-            </MudSelect>
-            <InputFile id="fileInput" OnChange="OnChooseFileAsync" hidden multiple />
-            <MudButton Class="mt-3" HtmlTag="label"
-                       Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       StartIcon="@Icons.Filled.CloudUpload"
-                       for="fileInput">
-                Upload Image
-            </MudButton>
 
-            @if (_stream != null)
-            {
-                <MudText Typo="Typo.subtitle1" Align="Align.Center">@_fileName</MudText>
+                @if (_stream != null)
+                {
+                    <MudText Typo="Typo.subtitle1" Align="Align.Center">@_fileName</MudText>
 
-            }
+                }
 
 
-            <ValidationSummary />
+                <ValidationSummary />
 
-            @if (!string.IsNullOrWhiteSpace(_errorMessage))
-            {
-                <MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
-            }
-        </MudCardContent>
+                @if (!string.IsNullOrWhiteSpace(_errorMessage))
+                {
+                    <MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
+                }
+            </MudCardContent>
 
-        <MudCardActions>
-            <MudDivider />
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="_isBusy">Save</MudButton>
-        </MudCardActions>
-    </MudCard>
+            <MudCardActions>
+                <MudDivider />
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="_isBusy">Save</MudButton>
+            </MudCardActions>
+        </MudCard>
 
-</EditForm>
+    </EditForm>
 
 </div>
 

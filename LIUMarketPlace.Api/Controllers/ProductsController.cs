@@ -13,10 +13,14 @@ namespace LIUMarketPlace.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ICartService _cartService;
+        private readonly IFavoriteService _favoriteService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, ICartService cartService, IFavoriteService favoriteService)
         {
             _productService = productService;
+            _cartService = cartService;
+            _favoriteService = favoriteService;
         }
 
         #region GetAllProducts
@@ -60,6 +64,85 @@ namespace LIUMarketPlace.Api.Controllers
         }
 
         #endregion
+        #region GetProductByCampus
+        [HttpGet("campus/{campus}")]
+
+        public async Task<IActionResult> GetByCampusAsync(string campus)
+        {
+            var product = await _productService.GetAllProductByCampusAsync(campus);
+            if (product == null)
+            {
+                return BadRequest($"Products in {campus} not found");
+            }
+            return Ok(product);
+        }
+
+        #endregion
+
+        #region GetProductByCart
+        [HttpGet("cart")]
+
+        public async Task<IActionResult> GetByCartAsync()
+        {
+            
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var cartId = string.Empty;
+            var result = await _cartService.GetCartAsync(userId);
+
+
+            if (result != null)
+            {
+                cartId = result.CartId;
+            }
+            else
+            {
+                var cart = await _cartService.CreateCartAsync();
+                cartId = cart.CartId;
+            }
+
+
+            var product = await _productService.GetAllProductByCartAsync(cartId);
+
+            if (product == null)
+            {
+                return BadRequest($"Products in {cartId} not found");
+            }
+            return Ok(product);
+        }
+
+        #endregion
+
+        #region GetProductByFavorite
+        [HttpGet("favorite")]
+
+        public async Task<IActionResult> GetByFavoriteAsync()
+        {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var favoriteId = string.Empty;
+            var result = await _favoriteService.GetFavoriteAsync(userId);
+
+
+            if (result != null)
+            {
+                favoriteId = result.FavoriteId;
+            }
+            else
+            {
+                var favorite = await _favoriteService.CreateFavoriteAsync();
+                favoriteId = favorite.FavoriteId;
+            }
+
+
+            var product = await _productService.GetAllProductByFavoriteAsync(favoriteId);
+
+            if (product == null)
+            {
+                return BadRequest($"Products in {favoriteId} not found");
+            }
+            return Ok(product);
+        }
+
+        #endregion
 
         #region AddProduct
         [HttpPost]
@@ -95,7 +178,7 @@ namespace LIUMarketPlace.Api.Controllers
             if (!isValid)
                 return BadRequest("Invalid category ");
 
-            var result = await _productService.UpdateMovieAsync(model);
+            var result = await _productService.UpdateProductAsync(model);
             return Ok(result);
         }
         #endregion

@@ -1,8 +1,16 @@
 ﻿@page "/products/form"
+@page "/products/form/{id}"
 @attribute [Authorize]
 
-    <ProductForm  />
+
+    <ProductForm Id="@Id" />
+
     <Footer />
 
+    @code {
+
+    [Parameter]
+    public string Id { get; set; }
+    }
 
 

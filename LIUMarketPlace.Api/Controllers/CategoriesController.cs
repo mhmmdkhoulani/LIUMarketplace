@@ -32,6 +32,18 @@ namespace LIUMarketPlace.Api.Controllers
         }
         #endregion
 
+        #region GetCategoryById
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategoryById(int id)
+        {
+
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+
+            return Ok(category);
+
+        }
+        #endregion
+
         #region AddCategory
         [Authorize(Roles = "Admin")]
         [HttpPost("add")]
@@ -57,7 +69,7 @@ namespace LIUMarketPlace.Api.Controllers
         #region EditCategory
         [Authorize(Roles = "Admin")]
         [HttpPut("edit")]
-        public async Task<IActionResult> EditCategory([FromBody] Category model)
+        public async Task<IActionResult> EditCategory([FromBody] CategoryDto model)
         {
 
             if (!ModelState.IsValid)
@@ -79,7 +91,7 @@ namespace LIUMarketPlace.Api.Controllers
         #region DeleteCategory
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory([FromBody] int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
             
 

@@ -1,0 +1,9 @@
+﻿@page "/users/{id}"
+
+<UserDetails Id="@Id" />
+
+<Footer />
+@code {
+    [Parameter]
+        public string Id { get; set; }
+}

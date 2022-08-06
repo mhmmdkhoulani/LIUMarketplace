@@ -107,6 +107,42 @@ namespace LIUMarketPlace.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("LIUMarketplace.Models.Models.Cart", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("LIUMarketplace.Models.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CartId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
+                });
+
             modelBuilder.Entity("LIUMarketplace.Models.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -121,6 +157,42 @@ namespace LIUMarketPlace.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("LIUMarketplace.Models.Models.Favorite", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Favorites");
+                });
+
+            modelBuilder.Entity("LIUMarketplace.Models.Models.FavoriteItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FavoriteId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FavoriteId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("FavoriteItems");
                 });
 
             modelBuilder.Entity("LIUMarketplace.Models.Models.Media", b =>
@@ -355,6 +427,40 @@ namespace LIUMarketPlace.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LIUMarketplace.Models.Models.CartItem", b =>
+                {
+                    b.HasOne("LIUMarketplace.Models.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("LIUMarketplace.Models.Models.Product", "Product")
+                        .WithMany("CartItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("LIUMarketplace.Models.Models.FavoriteItem", b =>
+                {
+                    b.HasOne("LIUMarketplace.Models.Models.Favorite", "Favorite")
+                        .WithMany("FavoriteItems")
+                        .HasForeignKey("FavoriteId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("LIUMarketplace.Models.Models.Product", "Product")
+                        .WithMany("FavoriteItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Favorite");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("LIUMarketplace.Models.Models.Media", b =>
                 {
                     b.HasOne("LIUMarketplace.Models.Models.Product", "Product")
@@ -469,13 +575,27 @@ namespace LIUMarketPlace.Api.Migrations
                     b.Navigation("Reviews");
                 });
 
+            modelBuilder.Entity("LIUMarketplace.Models.Models.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
             modelBuilder.Entity("LIUMarketplace.Models.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("LIUMarketplace.Models.Models.Favorite", b =>
+                {
+                    b.Navigation("FavoriteItems");
+                });
+
             modelBuilder.Entity("LIUMarketplace.Models.Models.Product", b =>
                 {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("FavoriteItems");
+
                     b.Navigation("MediaPaths");
 
                     b.Navigation("Reviews");

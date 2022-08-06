@@ -1,0 +1,13 @@
+﻿@page "/product/{id}"
+
+
+<ProductDetails Id="@Id" />
+
+<ProductsList Heading="Similar Products" />
+ 
+
+<Footer />
+@code {
+    [Parameter]
+    public string Id { get; set; }
+}

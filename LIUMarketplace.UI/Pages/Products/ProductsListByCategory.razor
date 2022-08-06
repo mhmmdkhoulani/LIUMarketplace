@@ -1,0 +1,26 @@
+﻿@page "/products/category/{categoryId:int}"
+
+
+
+
+        <ProductsList Heading="Products By " ByCampus="false" ByCategory="true"  CategoryId="@CategoryId"/>
+
+
+
+
+<div class="floating-button">
+    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"  OnClick="() => AddProduct()"/>
+
+</div>
+
+<Footer />
+
+<style> 
+    .floating-button { 
+        position: fixed; 
+        bottom: 200px; 
+        right: 50px; 
+    } 
+</style> 
+
+

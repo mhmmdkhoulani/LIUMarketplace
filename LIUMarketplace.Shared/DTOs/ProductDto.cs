@@ -19,7 +19,7 @@ namespace LIUMarketplace.Shared.DTOs
         [Required]
         public string Description { get; set; }
 
-        [Required]
+        
         public IFormFile ImageCover { get; set; }
         public string ImageCoverUrl { get;set; }
         public List<IFormFile> MediaPaths { get; set; }

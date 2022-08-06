@@ -17,11 +17,26 @@ using LIUMarketplace.UI;
 using LIUMarketplace.UI.Components;
 using LIUMarketplace.UI.Shared;
 using MudBlazor;
+using BlazorComponentUtilities;
 
-namespace LIUMarketplace.UI.Pages.Product
+namespace LIUMarketplace.UI.Components
 {
-    public partial class CreateEditProduct
+    public partial class CampusSlider
     {
+        public int spacing { get; set; } = 2;
+        private string _textStyle => new StyleBuilder()
+                                         .AddStyle("cursor", "pointer")
+                                         .Build();
         
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
+        private void OnViewEvent(string campus)
+        {
+            NavigationManager.NavigateTo($"/products/campus/{campus}");
+        }
+
+
     }
 }

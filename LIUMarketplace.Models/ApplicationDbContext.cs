@@ -20,6 +20,11 @@ namespace LIUMarketplace.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<FavoriteItem> FavoriteItems { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -54,6 +59,47 @@ namespace LIUMarketplace.Models
                 .HasMany(c => c.Products)
                 .WithOne(p => p.Category)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Cart>()
+                .HasMany(c => c.CartItems)
+                .WithOne(p => p.Cart)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Product>()
+                .HasMany(c => c.CartItems)
+                .WithOne(p => p.Product)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<CartItem>()
+                 .HasOne(c => c.Cart)
+                 .WithMany(p => p.CartItems)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<CartItem>()
+                 .HasOne(c => c.Product)
+                 .WithMany(p => p.CartItems)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Favorite>()
+               .HasMany(c => c.FavoriteItems)
+               .WithOne(p => p.Favorite)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Product>()
+                .HasMany(c => c.FavoriteItems)
+                .WithOne(p => p.Product)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<FavoriteItem>()
+                 .HasOne(c => c.Favorite)
+                 .WithMany(p => p.FavoriteItems)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<FavoriteItem>()
+                 .HasOne(c => c.Product)
+                 .WithMany(p => p.FavoriteItems)
+            .OnDelete(DeleteBehavior.NoAction);
+
 
             base.OnModelCreating(builder);
         }

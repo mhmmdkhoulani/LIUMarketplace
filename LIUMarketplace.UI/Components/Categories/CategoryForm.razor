@@ -1,0 +1,49 @@
+﻿@namespace LIUMarketplace.UI.Components
+<div class="container">
+
+    <EditForm Model="_model" OnValidSubmit="SubmitFormAsync" class="p-5 mt-5">
+
+        <DataAnnotationsValidator />
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    @if (_isEditMode)
+                    {
+                        <MudText Typo="Typo.h5" Align="Align.Center">Edit Category</MudText>
+
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.h5" Align="Align.Center">Add new Category</MudText>
+
+                    }
+                </CardHeaderContent>
+
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTextField Label="Name" @bind-Value="@_model.Name" Variant="Variant.Outlined" Class="mt-5"  />
+                
+                <ValidationSummary />
+
+                @if (!string.IsNullOrWhiteSpace(_errorMessage))
+                {
+                    <MudAlert Severity="Severity.Error">@_errorMessage</MudAlert>
+                }
+            </MudCardContent>
+
+            <MudCardActions>
+                <MudDivider />
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="_isBusy">Save</MudButton>
+            </MudCardActions>
+        </MudCard>
+
+    </EditForm>
+
+</div>
+
+<style>
+    .container {
+        padding: 40px;
+        margin-top: 40px;
+    }
+</style>
